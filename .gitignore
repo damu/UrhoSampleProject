@@ -26,3 +26,7 @@
 *.exe
 *.out
 *.app
+Build/bin/CoreData/Shaders/HLSL/Cache
+Build
+bin/CoreData/Shaders/HLSL/Cache
+bin/Urho3D.log

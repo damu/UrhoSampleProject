@@ -1,1 +1,3 @@
-# hello_urho_sample
+# Urho Sample Project
+
+Relativly simple Urho example project. Does not require C++11.
