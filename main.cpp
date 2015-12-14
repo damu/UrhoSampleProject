@@ -153,7 +153,8 @@ public:
         // a rotating planet
         {
             node_rotating_planet=scene_->CreateChild("Planet");
-            node_rotating_planet->SetPosition(Vector3(100,-0.5,6));
+            node_rotating_planet->SetPosition(Vector3(-4,1.6,6));
+            node_rotating_planet->Scale(2);
             StaticModel* boxObject=node_rotating_planet->CreateComponent<StaticModel>();
             boxObject->SetModel(cache->GetResource<Model>("Models/planet.mdl"));
             boxObject->SetMaterial(cache->GetResource<Material>("Materials/planet_dsn.xml"));
@@ -269,7 +270,7 @@ public:
         String s(str.c_str(),str.size());
         window_text->SetText(s);
 
-        node_rotating_planet->Rotate(Quaternion(0,64*timeStep,0));
+        node_rotating_planet->Rotate(Quaternion(0,-22*timeStep,0));
 
         // Movement speed as world units per second
         float MOVE_SPEED=10.0f;
