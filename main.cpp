@@ -172,8 +172,8 @@ public:
 
         // a torch with a light, sound and particle effects
         {
-            node_torch=scene_->CreateChild("Light");
-            Vector3 pos(Vector3(3,-0.5,6));
+            node_torch=scene_->CreateChild("Torch");
+            Vector3 pos(Vector3(3,-0.3,6));
             node_torch->SetPosition(pos);
 
             StaticModel* boxObject=node_torch->CreateComponent<StaticModel>();
@@ -216,8 +216,8 @@ public:
             Light* light=lightNode->CreateComponent<Light>();
             light->SetLightType(LIGHT_DIRECTIONAL);
             light->SetCastShadows(true);
-            light->SetShadowBias(BiasParameters(0.00000025f,0.1f));
-            light->SetShadowCascade(CascadeParameters(20.0f,60.0f,180.0f,560.0f,100.0f,100.0f));
+            light->SetShadowBias(BiasParameters(0.00002f,0.5f));
+            light->SetShadowCascade(CascadeParameters(10.0f,50.0f,200.0f,400.0f,0.8f));
             light->SetShadowResolution(1.0);
             light->SetBrightness(1.0);
             light->SetColor(Color(1.0,0.9,0.8,1));
