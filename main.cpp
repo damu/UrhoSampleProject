@@ -102,8 +102,8 @@ public:
 
         cameraNode_=scene_->CreateChild("Camera");
         camera_=cameraNode_->CreateComponent<Camera>();
-        camera_->SetFarClip(50000);
-        camera_->SetNearClip(0.01);
+        camera_->SetFarClip(600);
+        camera_->SetNearClip(0.1);
         camera_->SetFov(75);
         SoundListener* listener=cameraNode_->CreateComponent<SoundListener>();
         GetSubsystem<Audio>()->SetListener(listener);
@@ -113,7 +113,6 @@ public:
         SharedPtr<Viewport> viewport(new Viewport(context_,scene_,cameraNode_->GetComponent<Camera>()));
         renderer->SetViewport(0,viewport);
         renderer->SetShadowMapSize(1024);
-        renderer->SetHDRRendering(true);
 
         RenderPath* effectRenderPath=viewport->GetRenderPath();
         effectRenderPath->Append(cache->GetResource<XMLFile>("PostProcess/AutoExposure.xml"));
@@ -124,8 +123,9 @@ public:
         Node* zoneNode=scene_->CreateChild("Zone");
         Zone* zone=zoneNode->CreateComponent<Zone>();
         zone->SetBoundingBox(BoundingBox(-50000.0f,50000.0f));
-        zone->SetFogStart(100000.0f);
-        zone->SetFogEnd(200000.0f);
+        zone->SetFogStart(500.0f);
+        zone->SetFogEnd(600.0f);
+        zone->SetFogColor(Color(1,1,1));
         zone->SetAmbientColor(Color(0.1,0.1,0.1));
 
         SubscribeToEvent(E_KEYDOWN,URHO3D_HANDLER(SampleApplication,HandleKeyDown));
@@ -216,11 +216,9 @@ public:
             Light* light=lightNode->CreateComponent<Light>();
             light->SetLightType(LIGHT_DIRECTIONAL);
             light->SetCastShadows(true);
-            light->SetShadowBias(BiasParameters(0.00002f,0.5f));
-            light->SetShadowCascade(CascadeParameters(10.0f,50.0f,200.0f,400.0f,0.8f));
-            light->SetShadowResolution(1.0);
-            light->SetBrightness(1.0);
-            light->SetColor(Color(1.0,0.9,0.8,1));
+            light->SetShadowBias(BiasParameters(0.00025f, 0.7f));
+            light->SetShadowCascade(CascadeParameters(4.0f,16.0f,64.0f,128.0f,0.8f));
+            light->SetColor(Color(1.4,0.9,0.8,1));
             lightNode->SetDirection(Vector3::FORWARD);
             lightNode->Yaw(-150);   // horizontal
             lightNode->Pitch(30);   // vertical
@@ -321,7 +319,7 @@ public:
         else if(key==KEY_ESC)
             engine_->Exit();
         else if(key==KEY_G)
-            window_text->SetVisible(!window_text->IsVisible());
+            window->SetVisible(!window->IsVisible());
         else if(key==KEY_T)
             camera_->SetFillMode(camera_->GetFillMode()==FILL_WIREFRAME?FILL_SOLID:FILL_WIREFRAME);
     }
